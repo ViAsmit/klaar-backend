@@ -24,7 +24,7 @@ router.get("/", function (req, res, next) {
 
   var arr = [];
   client.query(
-    `SELECT * FROM branches WHERE ifsc LIKE '${q}%' OR branch LIKE '${q}%' OR address LIKE '${q}%' OR city LIKE '${q}%' OR district LIKE '${q}%' OR state LIKE '${q}%'ORDER BY ifsc LIMIT ${limit} OFFSET ${offset};`,
+    `SELECT * FROM branches WHERE '${q}' IN (ifsc, branch, address, city, district, state) ORDER BY ifsc LIMIT ${limit} OFFSET ${offset};`,
     (err, data) => {
       if (err) throw err;
       for (let row of data.rows) {
